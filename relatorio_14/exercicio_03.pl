@@ -151,5 +151,4 @@ linhagem(Mestre, Discipulo) :-
     mestre(Mestre, Z),
     linhagem(Z, Discipulo).
 
-% CONSULTA DO EXERCICIO 3:
-% ?- rivais(naruto, Rival).
+
