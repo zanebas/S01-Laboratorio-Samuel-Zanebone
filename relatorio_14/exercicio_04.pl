@@ -149,5 +149,4 @@ linhagem(Mestre, Discipulo) :-
     mestre(Mestre, Z),
     linhagem(Z, Discipulo).
 
-% CONSULTA DO EXERCICIO 4:
-% ?- linhagem(jiraiya, Discipulo).
+
