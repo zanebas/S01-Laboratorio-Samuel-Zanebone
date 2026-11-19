@@ -141,15 +141,25 @@ ninja_versatil(Ninja) :-
 
 
 %Regra 3:
+rivais(A, B) :-
+    mestre(M, A),
+    mestre(M, B),
+    A \= B,
+    cla(A, C1),
+    cla(B, C2),
+    C1 \= C2.
 
 %Query 3:
+% ?- rivais(naruto, Rival).
 
 
 %Regra 4:
+linhagem(Mestre, Discipulo) :-
+    mestre(Mestre, Discipulo).
+
+linhagem(Mestre, Discipulo) :-
+    mestre(Mestre, Z),
+    linhagem(Z, Discipulo).
 
 %Query 4:
-
-:- initialization(main).
-main :-
-    forall(ninja_versatil(Ninja), (write(Ninja), nl)),
-    halt.
+% ?- linhagem(jiraiya, Discipulo).
