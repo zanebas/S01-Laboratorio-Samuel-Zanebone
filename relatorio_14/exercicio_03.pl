@@ -1,8 +1,9 @@
+
 % ==========================================
-% RELATÓRIO 14 - BANCO DE DADOS: O MUNDO NINJA
+% RELATORIO 14 - BANCO DE DADOS: O MUNDO NINJA
 % ==========================================
 
-% Fatos: Linhagem de treinamento (mestre, discipulo) - HIERARQUIA DE MESTRES
+% Fatos: Linhagem de treinamento
 mestre(hashirama, hiruzen).
 mestre(tobirama, hiruzen).
 mestre(hiruzen, jiraiya).
@@ -33,7 +34,7 @@ mestre(naruto, konohamaru).
 mestre(sasuke, boruto).
 mestre(naruto, boruto).
 
-% Fatos: Natureza do chakra (ninja, elemento)
+% Fatos: Natureza do chakra
 natureza(naruto, vento).
 natureza(sasuke, fogo).
 natureza(sasuke, raio).
@@ -59,7 +60,7 @@ natureza(kisame, agua).
 natureza(boruto, raio).
 natureza(boruto, vento).
 
-% Fatos: Clã (ninja, cla)
+% Fatos: Cla
 cla(naruto, uzumaki).
 cla(nagato, uzumaki).
 cla(boruto, uzumaki).
@@ -81,8 +82,9 @@ cla(ino, yamanaka).
 cla(choji, akimichi).
 cla(kiba, inuzuka).
 cla(shino, aburame).
+cla(sakura, haruno).
 
-% Fatos: Vila de origem (ninja, vila)
+% Fatos: Vila de origem
 vila(naruto, konoha).
 vila(sasuke, konoha).
 vila(sakura, konoha).
@@ -101,7 +103,7 @@ vila(kisame, kiri).
 vila(deidara, iwa).
 vila(nagato, ame).
 
-% Fatos: Organização (ninja, organizacao)
+% Fatos: Organizacao
 organizacao(itachi, akatsuki).
 organizacao(kisame, akatsuki).
 organizacao(deidara, akatsuki).
@@ -111,7 +113,7 @@ organizacao(jiraiya, sannin).
 organizacao(tsunade, sannin).
 organizacao(orochimaru, sannin).
 
-% Fatos: Invocação (ninja, animal)
+% Fatos: Invocacao
 invocacao(naruto, sapo).
 invocacao(jiraiya, sapo).
 invocacao(minato, sapo).
@@ -120,27 +122,19 @@ invocacao(orochimaru, cobra).
 invocacao(sasuke, falcao).
 invocacao(kakashi, cao_ninja).
 
-% Regra 1:
+% REGRA 1: Aprendiz de Elite
 aprendiz_de_elite(Ninja) :-
     (mestre(kakashi, Ninja) ; mestre(sasuke, Ninja)),
     (natureza(Ninja, raio) ; natureza(Ninja, fogo)).
 
-%Query 1:
-% ?- aprendiz_de_elite(Ninja).
-
-
-%Regra 2:
+% REGRA 2: Ninja Versatil
 ninja_versatil(Ninja) :-
     vila(Ninja, konoha),
     natureza(Ninja, X),
     natureza(Ninja, Y),
     X \= Y.
 
-%Query 2:
-% ?- ninja_versatil(Ninja).
-
-
-%Regra 3:
+% REGRA 3: Rivais de Treino
 rivais(A, B) :-
     mestre(M, A),
     mestre(M, B),
@@ -149,15 +143,13 @@ rivais(A, B) :-
     cla(B, C2),
     C1 \= C2.
 
-%Query 3:
+% REGRA 4: Linhagem
+linhagem(Mestre, Discipulo) :-
+    mestre(Mestre, Discipulo).
+
+linhagem(Mestre, Discipulo) :-
+    mestre(Mestre, Z),
+    linhagem(Z, Discipulo).
+
+% CONSULTA DO EXERCICIO 3:
 % ?- rivais(naruto, Rival).
-
-
-%Regra 4:
-
-%Query 4:
-
-:- initialization(main).
-main :-
-    forall(rivais(naruto, Rival), (write(Rival), nl)),
-    halt.
